@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>每日一题</title>
+    <link href="/2024/07/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/"/>
+    <url>/2024/07/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="每日一题"><a href="#每日一题" class="headerlink" title="每日一题"></a>每日一题</h1><h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><h3 id="2024-7-26-找出分区值"><a href="#2024-7-26-找出分区值" class="headerlink" title="2024.7.26 找出分区值"></a>2024.7.26 找出分区值</h3><h4 id="description"><a href="#description" class="headerlink" title="description"></a>description</h4><p>给你一个 正 整数数组 nums 。<br>将 nums 分成两个数组：nums1 和 nums2 ，并满足下述条件：<br>数组 nums 中的每个元素都属于数组 nums1 或数组 nums2 。<br>两个数组都 非空 。<br>分区值 最小 。<br>分区值的计算方法是 |max(nums1) - min(nums2)| 。<br>其中，max(nums1) 表示数组 nums1 中的最大元素，min(nums2) 表示数组 nums2 中的最小元素。<br>返回表示分区值的整数。</p><h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><p>思路比较简单，最小分区值一定是大小相邻两个元素的差值，所以先排序，再找到最小的相邻差值即可，时间复杂度受限于排序算法，用的是快排，所以为$\Omicron(NlogN)$<br>代码如下</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C"><br><span class="hljs-type">int</span> <span class="hljs-title function_">cmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">void</span> *a, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *b)</span> &#123;<br>    <span class="hljs-keyword">return</span> *(<span class="hljs-type">int</span>*)a - *(<span class="hljs-type">int</span>*)b;<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">findValueOfPartition</span><span class="hljs-params">(<span class="hljs-type">int</span>* nums, <span class="hljs-type">int</span> numsSize)</span>&#123;<br>    qsort(nums,numsSize,<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>),cmp);<br>    <span class="hljs-type">int</span> min;<br>    <span class="hljs-type">int</span> temp;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;numsSize<span class="hljs-number">-1</span>;i++)&#123;<br>        temp=nums[i+<span class="hljs-number">1</span>]-nums[i];<br>        <span class="hljs-keyword">if</span>(i)&#123;<br>            min=min&lt;temp?min:temp;<br>        &#125;<br>        <span class="hljs-keyword">else</span> min=temp;<br>        <span class="hljs-keyword">if</span>(!temp)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> min;<br>&#125;<br></code></pre></td></tr></table></figure><p>写的时候发现自己居然忘了怎么写快排，所以重新写一遍</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs C">    <span class="hljs-type">void</span> <span class="hljs-title function_">quick_sort</span><span class="hljs-params">(<span class="hljs-type">int</span> *a,<span class="hljs-type">int</span> left,<span class="hljs-type">int</span> right)</span>&#123;<span class="hljs-comment">//快排</span><br>    <span class="hljs-keyword">if</span>(left&gt;right)<span class="hljs-keyword">return</span>;<span class="hljs-comment">//当左下标大于右下标时返回</span><br>    <span class="hljs-type">int</span> key =left,temp;<span class="hljs-comment">//将最左侧设为key值</span><br>    <span class="hljs-type">int</span> mright=right;<span class="hljs-comment">//记录右下标</span><br>    <span class="hljs-keyword">while</span>(left&lt;right)&#123;<br>        <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;a[right]&gt;a[key])right--;<span class="hljs-comment">//从右开始找到小于key值的第一个元素</span><br>        <span class="hljs-keyword">while</span>(left&lt;right&amp;&amp;a[left]&lt;=a[key])left++;<span class="hljs-comment">//从左开始找到大于key的第一个元素</span><br>        temp=a[left];<span class="hljs-comment">//交换left和right指向的两个元素的值</span><br>        a[left]=a[right];<br>        a[right]=temp;<br>    &#125;<br>    temp=a[left];<span class="hljs-comment">//将key值和中间值相交换，此时left指向的元素左边比该元素小，右边的元素都比该元素大</span><br>    a[left]=a[key];<br>    a[key]=temp;<br>    quick_sort(a,key,left<span class="hljs-number">-1</span>);<span class="hljs-comment">//对左边的元素再次进行快排</span><br>    quick_sort(a,left+<span class="hljs-number">1</span>,mright);<span class="hljs-comment">//对右边的元素进行快排</span><br>&#125;<br></code></pre></td></tr></table></figure><h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h3 id="2024-7-29-棒球比赛"><a href="#2024-7-29-棒球比赛" class="headerlink" title="2024.7.29 棒球比赛"></a>2024.7.29 棒球比赛</h3><h4 id="description-1"><a href="#description-1" class="headerlink" title="description"></a>description</h4><p>你现在是一场采用特殊赛制棒球比赛的记录员。这场比赛由若干回合组成，过去几回合的得分可能会影响以后几回合的得分。<br>比赛开始时，记录是空白的。你会得到一个记录操作的字符串列表 ops，其中 ops[i] 是你需要记录的第 i 项操作，ops 遵循下述规则：<br>整数 x - 表示本回合新获得分数 x<br>“+” - 表示本回合新获得的得分是前两次得分的总和。题目数据保证记录此操作时前面总是存在两个有效的分数。<br>“D” - 表示本回合新获得的得分是前一次得分的两倍。题目数据保证记录此操作时前面总是存在一个有效的分数。<br>“C” - 表示前一次得分无效，将其从记录中移除。题目数据保证记录此操作时前面总是存在一个有效的分数。<br>请你返回记录中所有得分的总和。</p><h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h4><p>根据题目用数组实现一个栈，然后模拟就可以了<br>代码如下</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">calPoints</span><span class="hljs-params">(<span class="hljs-type">char</span>** operations, <span class="hljs-type">int</span> operationsSize)</span> &#123;<br>    <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>,count=<span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> * record=(<span class="hljs-type">int</span>*)<span class="hljs-built_in">malloc</span>(operationsSize*<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;operationsSize;i++)&#123;<br>        <span class="hljs-keyword">if</span>(operations[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;+&#x27;</span>)&#123;<br>            record[count++]=record[count<span class="hljs-number">-1</span>]+record[count<span class="hljs-number">-2</span>];<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(operations[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;C&#x27;</span>)&#123;<br>            count--;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(operations[i][<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;D&#x27;</span>)&#123;<br>            record[count++]=record[count<span class="hljs-number">-1</span>]*<span class="hljs-number">2</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            record[count++]=atoi(operations[i]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;count;i++)&#123;<br>        sum+=record[i];<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure><p>学到了一个新函数atoi，是stdlib库里面的，用来将字符串转换为整数</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>题解</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>algorithm</tag>
+      
+      <tag>practice</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>csapp note</title>
+    <link href="/2024/07/25/csapp/"/>
+    <url>/2024/07/25/csapp/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Computer-Systems-A-Programmer’s-Perspective"><a href="#Computer-Systems-A-Programmer’s-Perspective" class="headerlink" title="Computer Systems A Programmer’s Perspective"></a>Computer Systems A Programmer’s Perspective</h1><h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>读书笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>system</tag>
+      
+      <tag>book</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>&#39;离散数学复习&#39;</title>
     <link href="/2024/07/25/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0/"/>
     <url>/2024/07/25/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0/</url>
