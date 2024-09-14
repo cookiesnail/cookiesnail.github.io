@@ -19,25 +19,21 @@
   <meta name="author" content="cookiesnail">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Computer Systems A Programmer’s PerspectiveChapter 1Information is bits + context:all informations in a system is represented as a bunch of bits,the meaning depend on the context we view them.high-lev">
+    <meta name="description" content="The instruction execution of CPU Fetch Instruction decodinng &amp; Read Oprerand Executive Control Memory access Write results to register  Memory Address big endian:78|56|34|12 small endian:12|34|56|">
 <meta property="og:type" content="article">
-<meta property="og:title" content="csapp note">
-<meta property="og:url" content="http://cookiesnail.github.io/2024/07/25/csapp/index.html">
+<meta property="og:title" content="&#39;sys2_note&#39;">
+<meta property="og:url" content="http://cookiesnail.github.io/2024/09/11/sys2-note/index.html">
 <meta property="og:site_name" content="Cookiesnail">
-<meta property="og:description" content="Computer Systems A Programmer’s PerspectiveChapter 1Information is bits + context:all informations in a system is represented as a bunch of bits,the meaning depend on the context we view them.high-lev">
+<meta property="og:description" content="The instruction execution of CPU Fetch Instruction decodinng &amp; Read Oprerand Executive Control Memory access Write results to register  Memory Address big endian:78|56|34|12 small endian:12|34|56|">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://cookiesnail.github.io/img/figure1.jpg">
-<meta property="article:published_time" content="2024-07-25T09:56:46.000Z">
-<meta property="article:modified_time" content="2024-08-31T02:08:45.247Z">
+<meta property="article:published_time" content="2024-09-11T02:23:16.000Z">
+<meta property="article:modified_time" content="2024-09-14T06:55:29.799Z">
 <meta property="article:author" content="cookiesnail">
-<meta property="article:tag" content="system">
-<meta property="article:tag" content="book">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://cookiesnail.github.io/img/figure1.jpg">
   
   
   
-  <title>csapp note - Cookiesnail</title>
+  <title>&#39;sys2_note&#39; - Cookiesnail</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="csapp note"></span>
+            <span id="subtitle" data-typed-text="&#39;sys2_note&#39;"></span>
           
         </div>
 
@@ -214,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-25 17:56" pubdate>
-          2024年7月25日 下午
+        <time datetime="2024-09-11 10:23" pubdate>
+          2024年9月11日 上午
         </time>
       </span>
     
@@ -226,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          49 字
+          15 字
         
       </span>
     
@@ -274,12 +270,23 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">csapp note</h1>
+            <h1 id="seo-header">&#39;sys2_note&#39;</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Computer-Systems-A-Programmer’s-Perspective"><a href="#Computer-Systems-A-Programmer’s-Perspective" class="headerlink" title="Computer Systems A Programmer’s Perspective"></a>Computer Systems A Programmer’s Perspective</h1><h2 id="Chapter-1"><a href="#Chapter-1" class="headerlink" title="Chapter 1"></a>Chapter 1</h2><p>Information is bits + context:all informations in a system is represented as a bunch of bits,the meaning depend on the context we view them.<br>high-level program-&gt;low-level machine-language instructions-&gt;executable object program<br>source program(hello.c)$\xrightarrow{Pre-processor(cpp)}$Modified source program(hello.i)$\xrightarrow{Compiler(cc1)}$Assembly program(hello.s)$\xrightarrow[text-&gt;binary]{Assembler(as)}$Relocatable object programs(hello.o,printf.o)$\xrightarrow{Linker(ld)}$Executable object program(hello)<br>the contexts on the four arrows are known collectively as the compilation system(编译系统)<br><img src="/../img/figure1.jpg" srcset="/img/loading.gif" lazyload alt="figure1.4"></p>
+                <h3 id="The-instruction-execution-of-CPU"><a href="#The-instruction-execution-of-CPU" class="headerlink" title="The instruction execution of CPU"></a>The instruction execution of CPU</h3><ul>
+<li>Fetch</li>
+<li>Instruction decodinng &amp; Read Oprerand</li>
+<li>Executive Control</li>
+<li>Memory access</li>
+<li>Write results to register</li>
+</ul>
+<h3 id="Memory-Address"><a href="#Memory-Address" class="headerlink" title="Memory Address"></a>Memory Address</h3><ul>
+<li>big endian:78|56|34|12</li>
+<li>small endian:12|34|56|78</li>
+</ul>
+<h3 id="Four-ISA-Design-Principles"><a href="#Four-ISA-Design-Principles" class="headerlink" title="Four ISA Design Principles"></a>Four ISA Design Principles</h3><p>1.Simplicity favors regularity<br>2.Smaller is faster<br>3.Make the common case fast<br>4.Good design demands good compromises</p>
 
                 
               </div>
@@ -288,36 +295,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="category-chain-item">读书笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/system/" class="print-no-link">#system</a>
-      
-        <a href="/tags/book/" class="print-no-link">#book</a>
-      
-    </div>
   
 </div>
 
@@ -327,8 +304,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>csapp note</div>
-      <div>http://cookiesnail.github.io/2024/07/25/csapp/</div>
+      <div>&#39;sys2_note&#39;</div>
+      <div>http://cookiesnail.github.io/2024/09/11/sys2-note/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +317,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月25日</div>
+          <div>2024年9月11日</div>
         </div>
       
       
@@ -372,9 +349,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" title="每日一题">
+                      <a href="/2024/09/12/ads-note/" title="ads_note">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">每日一题</span>
+                        <span class="hidden-mobile">ads_note</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -382,8 +359,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/25/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6%E5%A4%8D%E4%B9%A0/" title="&#39;离散数学复习&#39;">
-                        <span class="hidden-mobile">&#39;离散数学复习&#39;</span>
+                      <a href="/2024/07/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" title="每日一题">
+                        <span class="hidden-mobile">每日一题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
